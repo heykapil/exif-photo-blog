@@ -21,9 +21,9 @@ const syncContentFromGit = async () => {
     for (var key in ca) {
       try {
         fs.writeFileSync('./ca.crt', ca[key]);
-        fs.appendFileSync('./src/services/ca.crt', ca[key]);
-        fs.appendFileSync('ca.pem', ca[key]);
-        fs.appendFileSync('./src/services/ca.pem', ca[key]);
+        fs.writeFileSync('./src/services/ca.crt', ca[key]);
+        fs.writeFileSync('./ca.pem', ca[key]);
+        fs.writeFileSync('./src/services/ca.pem', ca[key]);
         console.log('Writing Certificate...');
       } catch (err) {
         console.error(err);
