@@ -2,7 +2,7 @@
   "name": "exif-photo-blog",
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "node ./setup.mjs && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
     "test": "jest --watch --transformIgnorePatterns 'node_modules/(?!my-library-dir)/'",
