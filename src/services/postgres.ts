@@ -6,7 +6,7 @@ const pool = new Pool({
   ...(POSTGRES_SSL_ENABLED && {
     ssl: {
       rejectUnauthorized: false,
-      ca: fs.readFileSync('./ca.pem').toString(),
+      ca: fs.readFileSync('./ca.crt').toString(),
     },
   }),
 });

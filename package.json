@@ -2,7 +2,7 @@
   "name": "exif-photo-blog",
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "next build",
+    "build": "node ./setup.mjs && next build",
     "start": "next start",
     "lint": "next lint --fix",
     "test": "jest --watch --transformIgnorePatterns 'node_modules/(?!my-library-dir)/'",
@@ -36,6 +36,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
+    "dotenv": "^16.4.5",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.5",
     "exifr": "^7.1.3",
