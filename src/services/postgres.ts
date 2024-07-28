@@ -1,12 +1,15 @@
 import { POSTGRES_SSL_ENABLED } from '@/site/config';
 import { Pool, QueryResult, QueryResultRow } from 'pg';
 import fs from 'fs';
+import path from 'path';
+
+const configDirectory = path.resolve(process.cwd(), 'config');
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
   ...(POSTGRES_SSL_ENABLED && {
     ssl: {
       rejectUnauthorized: false,
-      ca: fs.readFileSync('./ca.crt').toString(),
+      ca: fs.readFileSync(path.join(configDirectory, 'ca.pem')).toString(),
     },
   }),
 });
