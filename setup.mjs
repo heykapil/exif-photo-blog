@@ -14,14 +14,16 @@ const syncContentFromGit = async () => {
         -H 'accept: application/json' \
         -H "Authorization: Bearer ${token}" \
         -H 'Content-Type: application/json' \
-        -o ca.pem
+        -o ca.crt
     `);
-    let rawdata = fs.readFileSync('./ca.pem');
+    let rawdata = fs.readFileSync('./ca.crt');
     let ca = JSON.parse(rawdata);
     for (var key in ca) {
       try {
-        fs.writeFileSync('./ca.pem', ca[key]);
-        fs.writeFileSync('./src/services/ca.pem', ca[key]);
+        fs.writeFileSync('./ca.crt', ca[key]);
+        fs.appendFileSync('./src/services/ca.crt', ca[key]);
+        fs.appendFileSync('ca.pem', ca[key]);
+        fs.appendFileSync('./src/services/ca.pem', ca[key]);
         console.log('Writing Certificate...');
       } catch (err) {
         console.error(err);
