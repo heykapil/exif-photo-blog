@@ -33,11 +33,14 @@ export const CLOUDFLARE_R2_BASE_URL_PRIVATE =
 
 export const cloudflareR2Client = () => new S3Client({
   region: 'auto',
-  endpoint: CLOUDFLARE_R2_ENDPOINT,
+  endpoint: `https://${CLOUDFLARE_R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
   credentials: {
     accessKeyId: CLOUDFLARE_R2_ACCESS_KEY,
     secretAccessKey: CLOUDFLARE_R2_SECRET_ACCESS_KEY,
   },
+  // Add these two lines to stop the SDK from adding checksum headers
+  requestChecksumCalculation: "WHEN_REQUIRED",
+  responseChecksumValidation: "WHEN_REQUIRED",
 });
 
 const urlForKey = (key?: string, isPublic = true) => isPublic
@@ -53,7 +56,11 @@ export const isUrlFromCloudflareR2 = (url?: string) => (
 );
 
 export const cloudflareR2PutObjectCommandForKey = (Key: string) =>
-  new PutObjectCommand({ Bucket: CLOUDFLARE_R2_BUCKET, Key });
+  new PutObjectCommand({ 
+    Bucket: CLOUDFLARE_R2_BUCKET, 
+    Key,
+    ChecksumAlgorithm: undefined,
+  });
 
 export const cloudflareR2Put = async (
   file: Buffer,
